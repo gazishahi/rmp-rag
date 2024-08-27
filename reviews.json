@@ -1,0 +1,124 @@
+{
+  "reviews": [
+    {
+      "professor": "Dr. Emily Johnson",
+      "subject": "Biology",
+      "stars": 4,
+      "review": "Dr. Johnson's lectures are engaging and she explains complex concepts clearly. Very approachable during office hours."
+    },
+    {
+      "professor": "Prof. Michael Chen",
+      "subject": "Computer Science",
+      "stars": 5,
+      "review": "Brilliant instructor! Prof. Chen's passion for coding is contagious. His projects are challenging but rewarding."
+    },
+    {
+      "professor": "Dr. Sarah Thompson",
+      "subject": "Psychology",
+      "stars": 3,
+      "review": "Decent lectures, but the workload is overwhelming. Dr. Thompson could improve on providing timely feedback."
+    },
+    {
+      "professor": "Prof. Robert Martinez",
+      "subject": "History",
+      "stars": 4,
+      "review": "Prof. Martinez brings history to life with his storytelling. Exams are tough but fair."
+    },
+    {
+      "professor": "Dr. Lisa Wong",
+      "subject": "Chemistry",
+      "stars": 5,
+      "review": "Dr. Wong is an exceptional teacher. Her lab demonstrations are always exciting and informative."
+    },
+    {
+      "professor": "Prof. David Anderson",
+      "subject": "Economics",
+      "stars": 2,
+      "review": "Lectures are dry and hard to follow. Prof. Anderson seems disinterested in student questions."
+    },
+    {
+      "professor": "Dr. Rachel Green",
+      "subject": "Environmental Science",
+      "stars": 4,
+      "review": "Dr. Green's field trips are the highlight of the course. She's very knowledgeable and passionate about the subject."
+    },
+    {
+      "professor": "Prof. James Wilson",
+      "subject": "Mathematics",
+      "stars": 3,
+      "review": "Prof. Wilson knows his stuff, but his teaching style is a bit too fast-paced for most students."
+    },
+    {
+      "professor": "Dr. Olivia Brown",
+      "subject": "English Literature",
+      "stars": 5,
+      "review": "Dr. Brown's analysis of classic texts is insightful. She encourages critical thinking and class discussions."
+    },
+    {
+      "professor": "Prof. Thomas Lee",
+      "subject": "Physics",
+      "stars": 4,
+      "review": "Prof. Lee explains complex theories well. His problem-solving sessions are particularly helpful."
+    },
+    {
+      "professor": "Dr. Maria Garcia",
+      "subject": "Sociology",
+      "stars": 3,
+      "review": "Dr. Garcia's lectures are interesting, but the course structure could use some improvement."
+    },
+    {
+      "professor": "Prof. William Taylor",
+      "subject": "Art History",
+      "stars": 5,
+      "review": "Prof. Taylor's enthusiasm for art is infectious. His virtual museum tours are a great addition to the course."
+    },
+    {
+      "professor": "Dr. Jennifer Murphy",
+      "subject": "Nutrition",
+      "stars": 4,
+      "review": "Dr. Murphy provides practical knowledge. Her assignments encourage healthy lifestyle changes."
+    },
+    {
+      "professor": "Prof. Daniel Kim",
+      "subject": "Political Science",
+      "stars": 2,
+      "review": "Prof. Kim's lectures are often off-topic. The course content doesn't align well with the syllabus."
+    },
+    {
+      "professor": "Dr. Laura Adams",
+      "subject": "Geology",
+      "stars": 5,
+      "review": "Dr. Adams makes rocks exciting! Her hands-on approach to learning is refreshing and effective."
+    },
+    {
+      "professor": "Prof. Christopher White",
+      "subject": "Philosophy",
+      "stars": 4,
+      "review": "Prof. White encourages deep thinking. Discussions in his class are always thought-provoking."
+    },
+    {
+      "professor": "Dr. Sophia Patel",
+      "subject": "Neuroscience",
+      "stars": 3,
+      "review": "Dr. Patel's research is cutting-edge, but her teaching style can be a bit confusing at times."
+    },
+    {
+      "professor": "Prof. Mark Johnson",
+      "subject": "Business Administration",
+      "stars": 4,
+      "review": "Prof. Johnson brings real-world experience to the classroom. His case studies are particularly insightful."
+    },
+    {
+      "professor": "Dr. Emma Watson",
+      "subject": "Anthropology",
+      "stars": 5,
+      "review": "Dr. Watson's lectures are captivating. She presents complex cultural concepts in an accessible way."
+    },
+    {
+      "professor": "Prof. Andrew Scott",
+      "subject": "Music Theory",
+      "stars": 3,
+      "review": "Prof. Scott is knowledgeable, but his assignments can be unclear. More guidance on projects would be helpful."
+    }
+  ]
+}
