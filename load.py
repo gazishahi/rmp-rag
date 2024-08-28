@@ -2,12 +2,12 @@
 from dotenv import load_dotenv
 load_dotenv()
 import os
-from openai import OpenAI
 from pinecone import Pinecone, ServerlessSpec
+import google.generativeai as genai
 
 # %% Create Pinecone index
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-pc.create_index(name="rag", dimension=1536, metric="cosine", spec=ServerlessSpec(cloud='aws', region='us-east-1'))
+pc.create_index(name="rag", dimension=768, metric="cosine", spec=ServerlessSpec(cloud='aws', region='us-east-1'))
 
 # %% Load data
 import json
@@ -15,16 +15,16 @@ data = json.load(open("reviews.json"))
 data['reviews']
 
 # %% Processed data
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-1.5-flash')
 processed_data = []
-client = OpenAI()
-
 for review in data['reviews']:
-    response = client.embeddings.create(
-        input=review['review'],
-        model="text-embedding-3-small",
+    response = genai.embed_content(
+        model="models/text-embedding-004",
+        content=review['review'],
     )
 
-    embedding = response.data[0].embeddding
+    embedding = response['embedding']
     processed_data.append({
         "values": embedding,
         "id": review["professor"],

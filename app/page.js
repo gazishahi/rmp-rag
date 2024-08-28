@@ -1,6 +1,14 @@
 "use client";
 import { useState } from "react";
-import { Box, Stack, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  TextField,
+  Button,
+  Paper,
+  Typography,
+} from "@mui/material";
+import Markdown from "react-markdown";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -58,59 +66,79 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      bgcolor="#d1ebe5"
     >
-      <Stack
-        direction="column"
-        width="500px"
-        height="700x"
-        border="1px solid black"
-        p={2}
-        spacing={3}
+      <Paper
+        elevation={3}
+        sx={{
+          width: 500,
+          height: 700,
+          p: 3,
+          borderRadius: 4,
+          bgcolor: "#d1ebe5",
+        }}
       >
-        <Stack
-          direction="column"
-          spacing={2}
-          flextGrow={1}
-          overflow="auto"
-          maxHeight="100%"
-        >
-          {messages.map((message, index) => (
-            <Box
-              key={index}
-              display="flex"
-              justifyContent={
-                message.role === "assistant" ? "flex-start" : "flex-end"
-              }
-            >
-              <Box
-                bgcolor={
-                  message.role === "assistant"
-                    ? "primary.main"
-                    : "secondary.main"
-                }
-                color="white"
-                borderRadius={16}
-                p={3}
-              >
-                {message.content}
-              </Box>
-            </Box>
-          ))}
-        </Stack>
-        <Stack direction="row" spacing={2}>
-          <TextField
-            label="Message"
-            fullWidth
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
+        <Stack direction={"column"} spacing={2} height="100%">
+          <Typography variant="h5" color="#0a0a0a" textAlign="center">
+            Rate My Professor Chatbot
+          </Typography>
+          <Stack
+            direction={"column"}
+            spacing={2}
+            flexGrow={1}
+            overflow="auto"
+            sx={{
+              maxHeight: "100%",
+              p: 1,
+              bgcolor: "#e7e4ed",
+              borderRadius: 2,
             }}
-          />
-          <Button variant="contained" onClick={sendMessage}>
-            Send
-          </Button>
+          >
+            {messages.map((message, index) => (
+              <Box
+                key={index}
+                display="flex"
+                justifyContent={
+                  message.role === "assistant" ? "flex-start" : "flex-end"
+                }
+              >
+                <Box
+                  bgcolor={message.role === "assistant" ? "#2cb8a0" : "#7c84a6"}
+                  color="white"
+                  borderRadius={7}
+                  p={3}
+                  maxWidth="75%"
+                >
+                  <Markdown>{message.content}</Markdown>
+                </Box>
+              </Box>
+            ))}
+          </Stack>
+          <Stack direction={"row"} spacing={2}>
+            <TextField
+              label="Message"
+              fullWidth
+              variant="outlined"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              sx={{
+                bgcolor: "#e6ebea",
+                borderRadius: 2,
+                input: { color: "black" },
+                label: { color: "gray" },
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={sendMessage}
+              sx={{ borderRadius: 2 }}
+            >
+              Send
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
+      </Paper>
     </Box>
   );
 }

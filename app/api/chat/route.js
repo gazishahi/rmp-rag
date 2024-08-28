@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Pinecone } from "@pinecone-database/pinecone";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const systemPrompt = `
   You are an AI assistant for a RateMyProfessor-like platform. Your role is to help students find professors based on their queries using a RAG (Retrieval-Augmented Generation) system. For each user question, you will provide information on the top 3 most relevant professors.
@@ -10,7 +10,7 @@ const systemPrompt = `
   2. Information on the top 3 professors, including:
      - Professor's name
      - Subject/Department
-     - Rating (out of 5 stars)
+     - Star rating as an integer out of 5 stars
      - A short summary of student reviews
   3. A concise conclusion or recommendation based on the retrieved information.
 
@@ -33,22 +33,20 @@ export async function POST(req) {
     apiKey: process.env.PINECONE_API_KEY,
   });
   const index = pc.index("rag").namespace("ns1");
-  const openai = new OpenAI();
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
   const text = data[data.length - 1].content;
-  const embedding = await openai.embeddings.create({
-    model: "text-embedding-3-small",
-    input: text,
-    encoding_format: "float",
-  });
-
+  const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+  const result = await model.embedContent(text);
+  const embedding = result.embedding;
   const results = await index.query({
     topK: 3,
     includeMetadata: true,
-    vector: embedding.data[0].embedding,
+    vector: embedding.values,
   });
 
-  let resultString = "Returned results from vector db (done automatically):";
+  let resultString =
+    "\n\nReturned results from vector db (done automatically):";
   results.matches.forEach((match) => {
     resultString += `\n
     Professor: ${match.id}
@@ -59,37 +57,11 @@ export async function POST(req) {
     `;
   });
 
-  const lastMessage = data[data.length - 1];
-  const lastMessageContent = lastMessage.content + resultString;
-  const lastDataWithoutLastMessage = data.slice(0, data.length - 1);
-  const completion = await openai.chat.completions.create({
-    messages: [
-      { role: "system", content: systemPrompt },
-      ...lastDataWithoutLastMessage,
-      { role: "user", content: lastMessageContent },
-    ],
-    model: "gpt-4o-mini",
-    stream: true,
-  });
+  const model_gen = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const gen_result = await model_gen.generateContent(
+    `${systemPrompt}\nQuery: ${resultString}\n${data}\n`,
+  );
+  const response = gen_result.response.text();
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      const encoder = new TextEncoder();
-      try {
-        for await (const chunk of completion) {
-          const content = chunk.choices[0]?.delta?.content;
-          if (content) {
-            const text = encoder.encode(content);
-            controller.enqueue(text);
-          }
-        }
-      } catch (err) {
-        controller.error(err);
-      } finally {
-        controller.close();
-      }
-    },
-  });
-
-  return new NextResponse(stream);
+  return new NextResponse(response);
 }
